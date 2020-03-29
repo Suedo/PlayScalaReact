@@ -1,10 +1,11 @@
 package models
 
-import reactivemongo.play.json._
+import reactivemongo.play.json._, collection._
 import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import com.google.inject.Inject
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.{JsObject, Json, OFormat}
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.api.{Cursor, ReadPreference}
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}

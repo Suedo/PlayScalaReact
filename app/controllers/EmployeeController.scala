@@ -1,21 +1,30 @@
 package controllers
 
-import com.google.inject.Inject
+import com.google.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, ControllerComponents}
 import play.modules.reactivemongo.{MongoController, ReactiveMongoApi, ReactiveMongoComponents}
 import models.{Employee, EmployeeRepositories}
-import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.libs.json.Json
 
+import scala.concurrent.{ExecutionContext, Future}
 
-class EmployeeController @Inject()(components: ControllerComponents, val reactiveMongoApi: ReactiveMongoApi, empRepo: EmployeeRepositories)
-  extends AbstractController(components) with MongoController with ReactiveMongoComponents {
+@Singleton
+class EmployeeController @Inject()(cc: ControllerComponents, val reactiveMongoApi: ReactiveMongoApi, empRepo: EmployeeRepositories)
+  extends AbstractController(cc) with MongoController with ReactiveMongoComponents {
 
-  def employeeById(id: Int) = Action.async {
-    empRepo.getEmployee(id).map { MaybeEmp =>
+  implicit def ec: ExecutionContext = cc.executionContext
+
+  def employeeByName(name: String) = Action.async {
+    println("getting emp by name")
+    empRepo.getEmployee(name).map { MaybeEmp =>
+      println(MaybeEmp)
       MaybeEmp.map(
         emp => Ok(Json.toJson(emp))
-      ).getOrElse(NotFound)
+      ).getOrElse(NotFound("name is invalid"))
     }
+  }
+
+  def test = Action { request =>
+    Ok("Got request YoooHooo")
   }
 }
