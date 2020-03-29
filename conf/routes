@@ -13,5 +13,6 @@
 #GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 #
 ##mongo
-GET     /employee/:name               controllers.EmployeeController.employeeByName(name: String)
-GET     /employee                   controllers.EmployeeController.test
+GET        /employee/name/:name                      controllers.EmployeeController.employeeByName(name: String)
+GET        /employee/id/:id                          controllers.EmployeeController.employeeById(id: String)
+GET        /employee/designation/:designation        controllers.EmployeeController.employeeByDesignation(designation: String)

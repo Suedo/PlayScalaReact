@@ -1,6 +1,8 @@
 package models
 
+import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
 import reactivemongo.play.json._, collection._
+import collection._
 import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import com.google.inject.Inject
 import play.api.libs.json.{JsObject, Json, OFormat}
@@ -20,26 +22,53 @@ case class Employee(
                      DOB: String,
                      Designation: String,
                      username: String,
-                     password: String,
+                     password: Option[String] // whatever you wanna hide thru projection, needs to be wrapped in Option
                    )
 
-object Employee {
+object JsonFormats {
 
-  import play.api.libs.json.Json
+  import play.api.libs.json._
   implicit val employeeFormat: OFormat[Employee] = Json.format[Employee]
+  implicit val employeeWrites: OWrites[Employee] = Json.writes[Employee] // needed when writing to JSON in controller
+
+  val NoObjIDPassword = Some(Json.obj(
+    "_id" -> 0,
+    "password" -> 0
+  ))
 }
 
 class EmployeeRepositories @Inject()(implicit ec: ExecutionContext, reactiveMongoApi: ReactiveMongoApi) {
 
-  import Employee._
+  import JsonFormats._
+  def collection: Future[JSONCollection] = reactiveMongoApi.database.map(_.collection("employee"))
 
-  def collection: Future[JSONCollection] = reactiveMongoApi.database.map(_.collection[JSONCollection]("employee"))
-
-  def getEmployee(name: String): Future[Option[Employee]] = {
+  def getEmployeeByName(name: String): Future[List[Employee]] = {
     println(collection)
     val selector = Json.obj("first_name" -> name)
-    val projection = Some(Json.obj("_id"-> 0))
-    collection.flatMap(_.find(selector, projection).one[Employee])
+//    val projection = Some(Json.obj("_id" -> 0))
+    val projection = NoObjIDPassword
+    collection.flatMap(_.find(selector, projection)
+        .cursor[Employee](ReadPreference.primary)
+        .collect[List](-1, Cursor.FailOnError[List[Employee]]())
+    )
+  }
+
+  def getEmployeeById(id: String): Future[Option[Employee]] = {
+    val selector = Json.obj("id" -> id)
+    val projection = NoObjIDPassword
+
+    collection.flatMap(_.find(selector,projection).one[Employee])
+  }
+
+  def getEmployeeByDesignation(designation: String): Future[List[Employee]] = {
+
+    val selector = Json.obj("Designation" -> designation)
+    val projection = NoObjIDPassword
+
+    collection.flatMap(_.find(selector, projection)
+      .cursor[Employee](ReadPreference.Primary)
+      .collect[List](-1, Cursor.FailOnError[List[Employee]]())
+    )
   }
 
 

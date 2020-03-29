@@ -5,7 +5,7 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.12.6" // 2.13 failes in the cursor collect section. says cbf missing implicit conversion for Factory
 routesGenerator := InjectedRoutesGenerator
 
 
