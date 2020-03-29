@@ -34,10 +34,11 @@ class EmployeeRepositories @Inject()(implicit ec: ExecutionContext, reactiveMong
 
   def collection: Future[JSONCollection] = reactiveMongoApi.database.map(_.collection[JSONCollection]("employee"))
 
-  def getEmployee(id: Int): Future[Option[Employee]] = {
-    val selector = Json.obj("id" -> id)
-    val projection = Some(Json.obj("id" -> id))
-    collection.flatMap(_.find(selector,projection).one[Employee])
+  def getEmployee(name: String): Future[Option[Employee]] = {
+    println(collection)
+    val selector = Json.obj("first_name" -> name)
+    val projection = Some(Json.obj("_id"-> 0))
+    collection.flatMap(_.find(selector, projection).one[Employee])
   }
 
 
