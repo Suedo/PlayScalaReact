@@ -3,7 +3,9 @@ organization := "play-scala-react-demo"
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala).settings(
+  watchSources ++= (baseDirectory.value / "public" ** "*").get
+)
 
 scalaVersion := "2.12.6" // 2.13 failes in the cursor collect section. says cbf missing implicit conversion for Factory
 routesGenerator := InjectedRoutesGenerator
