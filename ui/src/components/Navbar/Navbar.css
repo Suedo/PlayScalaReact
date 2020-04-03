@@ -1,0 +1,14 @@
+.parent {
+  display: flex;
+  justify-content: space-between;
+  /* https://stackoverflow.com/questions/34733955/what-are-the-differences-between-flex-grow-and-width */
+  flex-grow: 1; 
+}
+
+.child {
+  padding: 6px;
+}
+
+.MuiTypography-button {
+  padding: 0px 5px;
+}
