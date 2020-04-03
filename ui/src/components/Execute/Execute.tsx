@@ -1,13 +1,13 @@
 import React from "react";
 
 
-const Execute: React.FC = () => {
+const ExecuteComponent: React.FC = () => {
 
   return (
-    <div>
+    <h1>
       This is Execute page
-    </div>
+    </h1>
   )
 }
 
-export default Execute
+export default ExecuteComponent

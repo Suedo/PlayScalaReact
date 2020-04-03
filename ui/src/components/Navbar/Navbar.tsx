@@ -12,14 +12,14 @@ import "./Navbar.css";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1
-    }
+      flexGrow: 1,
+    },
   })
 );
 
@@ -39,8 +39,12 @@ const Navbar: React.FC = () => {
           </IconButton>
           <div className="parent">
             <div className="child">
-              <Typography variant="button">Home</Typography>
-              <Typography variant="button">Execute</Typography>
+              <Typography variant="button">
+                <a href="/home">Home</a>
+              </Typography>
+              <Typography variant="button">
+              <a href="/execute">Execute</a>
+              </Typography>
             </div>
             <Button color="inherit">Login</Button>
           </div>
