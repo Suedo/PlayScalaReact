@@ -1,0 +1,61 @@
+.form-label-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 4rem;
+  height: 2.5rem;
+}
+
+.form-label-group.form-selector {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.form-label-group > input {
+  height: 2.5rem;
+  text-indent: .8rem;
+  font-size: initial;
+  font-weight: 100;
+  font-style: italic;
+  font-family: Menlo, Roboto, system-ui;
+}
+
+select[name="Gender"],
+select[name="Designation"] {
+  min-width: 90%;
+  margin: 1rem 0;
+  /* height: 2rem; */
+}
+
+label {
+  font-family: Menlo, Roboto, system-ui;
+  font-size: initial;
+  font-weight: initial;
+  height: initial;
+}
+
+div#submit-button {
+  background-color: rgba(97, 230, 97, 0.336);
+  margin: 0.5rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+input[type="submit"] {
+  width: 10rem;
+  height: 2rem;
+  background-color: ivory;
+}
+
+/* for better visibility */
+.form-label-group span {
+  /* background-color: aqua; */
+  flex-grow: 1;
+}
+
+.form-label-group label {
+  /* background-color: yellow; */
+  flex-grow: 1;
+  text-align: start;
+  padding-left: 1rem;
+}

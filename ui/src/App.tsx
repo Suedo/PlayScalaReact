@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 
-import Navbar from "./components/Navbar/Navbar";
-import Body from "./components/Body/Body"
+import Navbar from "./modules/Navbar/Navbar";
+import Body from "./modules/Body/Body"
 
 const App: React.FC = () => {
   return (

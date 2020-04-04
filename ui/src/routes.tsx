@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom"; // <-- New code
 
 
-import HomeComponent from "./components/Home/Home";
-import ExecuteComponent from "./components/Execute/Execute";
+import HomeComponent from "./modules/Home/Home";
+import ExecuteComponent from "./modules/Execute/Execute";
 
 export interface RouteI {
   path: string;
