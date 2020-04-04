@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -40,10 +41,10 @@ const Navbar: React.FC = () => {
           <div className="parent">
             <div className="child">
               <Typography variant="button">
-                <a href="/home">Home</a>
+                <Link to="/home">Home</Link> {/* no more page refresh */}
               </Typography>
               <Typography variant="button">
-              <a href="/execute">Execute</a>
+                <Link to="/execute">Execute</Link>
               </Typography>
             </div>
             <Button color="inherit">Login</Button>
