@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+/* This is to remove the default 'underline' and 'color' of a link element */
+a {
+  text-decoration: none;
+  color: inherit;
+}
