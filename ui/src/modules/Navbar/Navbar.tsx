@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { Switch, Button, useTheme } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -24,13 +24,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  darkmode: boolean;
+  themeChange: () => void;
+}
+const Navbar: React.FC<NavbarProps> = ({ darkmode, themeChange }) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" color="default">
+        <Toolbar variant="dense">
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -40,14 +45,22 @@ const Navbar: React.FC = () => {
           </IconButton>
           <div className="parent">
             <div className="child">
-              <Typography variant="button">
-                <Link to="/home">Home</Link> {/* no more page refresh */}
-              </Typography>
-              <Typography variant="button">
-                <Link to="/execute">Execute</Link>
-              </Typography>
+              <Button variant="contained" color="primary">
+                <Typography color="textPrimary">
+                  <Link to="/home">Home</Link>
+                </Typography>
+              </Button>{" "}
+              {/* no more page refresh */}
+              <Button variant="contained" color="primary">
+                <Typography color="textPrimary">
+                  <Link to="/execute">Execute</Link>
+                </Typography>
+              </Button>
             </div>
-            <Button color="inherit">Login</Button>
+            <Switch checked={darkmode} onChange={themeChange}></Switch>
+            <Button variant="contained" color="primary">
+              <Typography color="textPrimary">Login</Typography>
+            </Button>
           </div>
         </Toolbar>
       </AppBar>
